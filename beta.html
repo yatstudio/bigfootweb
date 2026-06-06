@@ -37,8 +37,10 @@
           headers: {'content-type': 'application/json'},
           body: JSON.stringify({ action: 'subscribe', email: email.value.trim(), source: 'zh-beta' })
         });
-        const data = await res.json();
-        if (!res.ok || !data.ok) throw new Error(data.error || '提交失败');
+        const text = await res.text();
+        let data = null;
+        try { data = text ? JSON.parse(text) : null; } catch (error) { data = null; }
+        if (!res.ok || !data || !data.ok) throw new Error((data && data.error) || '预约暂时不可用。请邮件联系 CEO@bigfoot.Capital，或稍后再试。');
         statusEl.className = 'status ok';
         statusEl.textContent = '已收到预约，谢谢。';
         form.reset();

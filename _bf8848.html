@@ -36,8 +36,10 @@
       statusEl.className = 'muted';
       statusEl.textContent = '正在读取...';
       const res = await fetch('/api/waitlist?action=list', { headers: { 'x-admin-password': currentPassword }});
-      const data = await res.json();
-      if (!res.ok || !data.ok) throw new Error(data.error || '读取失败');
+      const text = await res.text();
+      let data = null;
+      try { data = text ? JSON.parse(text) : null; } catch (error) { data = null; }
+      if (!res.ok || !data || !data.ok) throw new Error((data && data.error) || '后台接口暂时不可用，请确认 Cloudflare Pages Function 与 KV 已部署。');
       rows = data.items || [];
       count.textContent = rows.length;
       if (!rows.length) table.innerHTML = '<div class="empty">暂无预约。</div>';
