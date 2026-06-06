@@ -1,0 +1,39 @@
+{
+  "ticker": "EXAMPLE",
+  "company_or_token": "Example Co / Example Token",
+  "market": "A-share/HK/US/Global/Crypto",
+  "timeframe": "industry_3_12m/event_1_8w/trading_observation/early_onchain",
+  "notes": "Replace ratings with 0-5 scores. 0 = absent, 5 = very strong.",
+  "positive_factors": {
+    "demand_inflection": 0,
+    "scarce_layer_power": 0,
+    "customer_urgency": 0,
+    "evidence_quality": 0,
+    "financial_or_protocol_capture": 0,
+    "valuation_gap": 0,
+    "catalyst_timing": 0,
+    "tradability_liquidity": 0
+  },
+  "penalties": {
+    "valuation_crowding": 0,
+    "financing_dilution_unlock": 0,
+    "governance_or_contract_risk": 0,
+    "accounting_or_tokenomics_risk": 0,
+    "geopolitical_policy_risk": 0,
+    "liquidity_slippage_risk": 0,
+    "hype_without_revenue": 0,
+    "substitution_risk": 0
+  },
+  "evidence": [
+    {
+      "claim": "",
+      "source": "",
+      "strength": "strong/medium/weak/needs-checking"
+    }
+  ],
+  "kill_switches": [
+    "",
+    "",
+    ""
+  ]
+}
