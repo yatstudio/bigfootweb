@@ -56,6 +56,8 @@
       }
     }
 
+    let selectedPlatform = '';
+
     document.querySelectorAll('.platform-cta').forEach((button) => {
       button.addEventListener('click', () => {
         const form = document.querySelector('.inline-waitlist');
@@ -63,6 +65,7 @@
         const input = form.querySelector('input[name="email"]');
         const status = form.querySelector('.inline-status');
         const platform = button.dataset.platform || button.textContent.trim();
+        selectedPlatform = platform;
         status.className = 'inline-status';
         status.textContent = WAITLIST_TEXT.platformMessage.replace('{platform}', platform);
         input.focus({ preventScroll: true });
@@ -88,7 +91,7 @@
           const res = await fetch('/api/waitlist', {
             method: 'POST',
             headers: {'content-type': 'application/json'},
-            body: JSON.stringify({ email, source: form.dataset.source || 'home' })
+            body: JSON.stringify({ email, platform: selectedPlatform, source: form.dataset.source || 'home' })
           });
           const data = await parseJsonSafely(res);
           if (!res.ok || !data || !data.ok) {
