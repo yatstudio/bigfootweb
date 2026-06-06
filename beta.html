@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>B-Foot Trading Agent 内测预约</title>
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <style>
+    :root{--bg:#08140d;--card:#fff7e4;--ink:#172817;--muted:#61705a;--gold:#e0ae4b;--green:#173f26;--line:rgba(23,40,23,.14)}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 72% 18%,rgba(255,225,154,.32),transparent 24%),linear-gradient(135deg,#07120c,#173f26 55%,#8f642f);font-family:Inter,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;color:#fff6dc;display:grid;place-items:center;padding:28px}.card{width:min(720px,100%);background:rgba(255,249,232,.94);color:var(--ink);border-radius:36px;padding:34px;box-shadow:0 34px 110px rgba(0,0,0,.34);border:1px solid rgba(255,255,255,.5)}.brand{display:flex;align-items:center;gap:14px;margin-bottom:28px}.brand img{width:58px;height:58px}.brand b{display:block;font-size:22px}.brand span{color:var(--muted);font-weight:800;font-size:13px}h1{font-size:clamp(34px,6vw,58px);line-height:1.02;margin:0 0 16px;letter-spacing:-.045em}p{color:var(--muted);line-height:1.75;font-size:17px;margin:0 0 24px}.form{display:grid;grid-template-columns:1fr auto;gap:12px;margin:28px 0 14px}input{min-height:56px;border:1px solid var(--line);border-radius:18px;padding:0 17px;font-size:17px;background:#fff;color:var(--ink);outline:none}input:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(224,174,75,.18)}button{min-height:56px;border:0;border-radius:18px;padding:0 22px;background:linear-gradient(135deg,#ffe19a,#d79b34);color:#16240f;font-weight:900;font-size:16px;cursor:pointer}.note{font-size:13px;color:#7a806f;margin-top:12px}.status{min-height:24px;font-weight:850;margin-top:12px}.ok{color:#1d6a37}.err{color:#a33b2e}.back{display:inline-flex;margin-top:18px;color:#173f26;font-weight:850;text-decoration:none}@media(max-width:560px){body{padding:18px}.card{padding:24px;border-radius:28px}.form{grid-template-columns:1fr}button{width:100%}h1{letter-spacing:-.025em}.brand img{width:48px;height:48px}}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="brand"><img src="assets/bigfoot-logo.png" alt="Bigfoot Capital"><div><b>Bigfoot Capital</b><span>B-Foot Trading Agent 内测</span></div></div>
+    <h1>预约 B-Foot Trading Agent 内测</h1>
+    <p>我们正在邀请少量用户参与桌面版交易智能体内测。留下电子邮件后，我们会在开放下一批名额时联系你。</p>
+    <form class="form" id="waitlistForm">
+      <input id="email" name="email" type="email" autocomplete="email" placeholder="你的电子邮件" required />
+      <button type="submit">提交预约</button>
+    </form>
+    <div id="status" class="status" aria-live="polite"></div>
+    <div class="note">仅用于内测通知。提交代表你同意 Bigfoot Capital 通过邮件与你联系。</div>
+    <a class="back" href="zh.html">← 返回首页</a>
+  </main>
+  <script>
+    const form = document.getElementById('waitlistForm');
+    const email = document.getElementById('email');
+    const statusEl = document.getElementById('status');
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      statusEl.className = 'status';
+      statusEl.textContent = '正在提交...';
+      try {
+        const res = await fetch('/api/waitlist', {
+          method: 'POST',
+          headers: {'content-type': 'application/json'},
+          body: JSON.stringify({ action: 'subscribe', email: email.value.trim(), source: 'zh-beta' })
+        });
+        const data = await res.json();
+        if (!res.ok || !data.ok) throw new Error(data.error || '提交失败');
+        statusEl.className = 'status ok';
+        statusEl.textContent = '已收到预约，谢谢。';
+        form.reset();
+      } catch (err) {
+        statusEl.className = 'status err';
+        statusEl.textContent = err.message || '提交失败，请稍后再试。';
+      }
+    });
+  </script>
+</body>
+</html>

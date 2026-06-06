@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bigfoot 内测预约查看</title>
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <style>
+    :root{--bg:#07120c;--card:#fff8e8;--ink:#172817;--muted:#66705c;--gold:#e0ae4b;--line:rgba(23,40,23,.14)}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:linear-gradient(135deg,#07120c,#173f26 58%,#8f642f);font-family:Inter,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;color:var(--ink);padding:28px}.wrap{width:min(980px,100%);margin:0 auto}.card{background:rgba(255,249,232,.95);border-radius:30px;padding:28px;box-shadow:0 34px 110px rgba(0,0,0,.32)}h1{margin:0 0 12px;font-size:34px;letter-spacing:-.04em}.muted{color:var(--muted);line-height:1.6}.login{display:grid;grid-template-columns:1fr auto;gap:12px;margin:24px 0}input{min-height:52px;border:1px solid var(--line);border-radius:16px;padding:0 15px;font-size:16px}button{min-height:52px;border:0;border-radius:16px;padding:0 20px;background:linear-gradient(135deg,#ffe19a,#d79b34);font-weight:900;cursor:pointer}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:18px 0;flex-wrap:wrap}.hidden{display:none}.err{color:#a33b2e;font-weight:850}.ok{color:#1d6a37;font-weight:850}table{width:100%;border-collapse:collapse;background:#fff;border-radius:18px;overflow:hidden}th,td{text-align:left;padding:13px 14px;border-bottom:1px solid #efe1bd;font-size:14px}th{background:#fff0c8;color:#173f26}td{word-break:break-word}.empty{padding:22px;background:#fff;border-radius:18px;color:var(--muted)}.copy{background:#173f26;color:#fff8e8}.small{font-size:13px}@media(max-width:640px){body{padding:16px}.card{padding:20px;border-radius:24px}.login{grid-template-columns:1fr}table{display:block;overflow-x:auto;white-space:nowrap}}
+  </style>
+</head>
+<body>
+  <main class="wrap card">
+    <h1>内测预约查看</h1>
+    <p class="muted">输入查看密码后读取预约列表。正式部署时密码应放在 Cloudflare 环境变量里，不放在前端源码。</p>
+    <form id="login" class="login">
+      <input id="password" type="password" placeholder="查看密码" autocomplete="current-password" required />
+      <button type="submit">查看</button>
+    </form>
+    <div id="status" class="muted"></div>
+    <section id="panel" class="hidden">
+      <div class="toolbar"><div><b id="count">0</b> 个预约</div><div><button class="copy" id="copy" type="button">复制邮箱</button> <button id="refresh" type="button">刷新</button></div></div>
+      <div id="table"></div>
+    </section>
+  </main>
+  <script>
+    const login = document.getElementById('login');
+    const passwordInput = document.getElementById('password');
+    const statusEl = document.getElementById('status');
+    const panel = document.getElementById('panel');
+    const table = document.getElementById('table');
+    const count = document.getElementById('count');
+    let currentPassword = '';
+    let rows = [];
+    async function loadRows(){
+      statusEl.className = 'muted';
+      statusEl.textContent = '正在读取...';
+      const res = await fetch('/api/waitlist?action=list', { headers: { 'x-admin-password': currentPassword }});
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error(data.error || '读取失败');
+      rows = data.items || [];
+      count.textContent = rows.length;
+      if (!rows.length) table.innerHTML = '<div class="empty">暂无预约。</div>';
+      else table.innerHTML = '<table><thead><tr><th>邮箱</th><th>时间</th><th>来源</th><th>IP</th></tr></thead><tbody>' + rows.map(r => `<tr><td>${escapeHtml(r.email)}</td><td>${escapeHtml(r.createdAt || '')}</td><td>${escapeHtml(r.source || '')}</td><td>${escapeHtml(r.ip || '')}</td></tr>`).join('') + '</tbody></table>';
+      panel.classList.remove('hidden');
+      statusEl.className = 'ok';
+      statusEl.textContent = '读取成功。';
+    }
+    function escapeHtml(s){return String(s).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
+    login.addEventListener('submit', async (e) => { e.preventDefault(); currentPassword = passwordInput.value; try { await loadRows(); } catch(err){ statusEl.className='err'; statusEl.textContent=err.message || '密码错误或读取失败'; }});
+    document.getElementById('refresh').addEventListener('click', () => loadRows().catch(err => {statusEl.className='err'; statusEl.textContent=err.message;}));
+    document.getElementById('copy').addEventListener('click', async () => { await navigator.clipboard.writeText(rows.map(r => r.email).join('\n')); statusEl.className='ok'; statusEl.textContent='邮箱已复制。'; });
+  </script>
+</body>
+</html>
