@@ -132,6 +132,11 @@ async function serveStatic(rawPathname, res) {
   try {
     const info = await stat(filePath);
     if (info.isDirectory()) {
+      if (!pathname.endsWith('/')) {
+        res.writeHead(301, { location: pathname + '/' });
+        res.end();
+        return;
+      }
       filePath = path.join(filePath, 'index.html');
       const indexInfo = await stat(filePath);
       if (!indexInfo.isFile()) throw Object.assign(new Error('Not file'), { code: 'ENOENT' });
