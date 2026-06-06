@@ -122,7 +122,7 @@ async function serveStatic(rawPathname, res) {
   let pathname = decodeURIComponent(rawPathname || '/');
   if (pathname === '/') pathname = '/zh.html';
   const safePath = path.normalize(pathname).replace(/^([.][.][/\\])+/, '');
-  const filePath = path.join(ROOT, safePath);
+  let filePath = path.join(ROOT, safePath);
 
   if (!filePath.startsWith(ROOT)) {
     sendText(res, 403, 'Forbidden');
@@ -131,7 +131,13 @@ async function serveStatic(rawPathname, res) {
 
   try {
     const info = await stat(filePath);
-    if (!info.isFile()) throw Object.assign(new Error('Not file'), { code: 'ENOENT' });
+    if (info.isDirectory()) {
+      filePath = path.join(filePath, 'index.html');
+      const indexInfo = await stat(filePath);
+      if (!indexInfo.isFile()) throw Object.assign(new Error('Not file'), { code: 'ENOENT' });
+    } else if (!info.isFile()) {
+      throw Object.assign(new Error('Not file'), { code: 'ENOENT' });
+    }
   } catch (error) {
     if (error && error.code === 'ENOENT') {
       sendText(res, 404, 'Not found');
