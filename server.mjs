@@ -34,6 +34,11 @@ const server = createServer(async (req, res) => {
       return;
     }
 
+    if (url.pathname === '/api/market-history') {
+      await handleMarketHistory(req, res, url);
+      return;
+    }
+
     await serveStatic(url.pathname, res);
   } catch (error) {
     console.error(error);
@@ -45,6 +50,50 @@ server.listen(PORT, HOST, () => {
   console.log(`Bigfoot Capital site listening on http://${HOST}:${PORT}`);
   console.log(`Waitlist file: ${WAITLIST_FILE}`);
 });
+
+async function handleMarketHistory(req, res, url) {
+  if (req.method !== 'GET') {
+    sendJson(res, 405, { error: 'method_not_allowed' });
+    return;
+  }
+
+  const symbol = String(url.searchParams.get('symbol') || '').toUpperCase();
+  if (!['GLD', 'QQQ'].includes(symbol)) {
+    sendJson(res, 400, { error: 'unsupported_symbol' });
+    return;
+  }
+
+  try {
+    const upstreamUrl = `https://query2.finance.yahoo.com/v8/finance/chart/${symbol}?range=1y&interval=1d`;
+    const upstream = await fetch(upstreamUrl, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 Bigfoot BTC market data proxy',
+        Accept: 'application/json',
+      },
+    });
+
+    if (!upstream.ok) {
+      sendJson(res, upstream.status, { error: 'upstream_failed', status: upstream.status });
+      return;
+    }
+
+    const json = await upstream.json();
+    const result = json?.chart?.result?.[0];
+    const timestamps = result?.timestamp || [];
+    const closes = result?.indicators?.quote?.[0]?.close || [];
+    const rows = timestamps
+      .map((timestamp, index) => ({ timestamp, close: closes[index] }))
+      .filter((row) => Number.isFinite(row.close));
+
+    res.writeHead(200, {
+      'content-type': 'application/json; charset=utf-8',
+      'cache-control': 's-maxage=1800, stale-while-revalidate=3600',
+    });
+    res.end(JSON.stringify({ symbol, source: 'Yahoo Finance chart via Bigfoot proxy', rows }));
+  } catch (error) {
+    sendJson(res, 500, { error: 'proxy_error', message: error.message });
+  }
+}
 
 async function handleWaitlist(req, res, url) {
   if (req.method === 'POST') {
