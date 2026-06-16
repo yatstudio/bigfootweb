@@ -39,6 +39,11 @@ const server = createServer(async (req, res) => {
       return;
     }
 
+    if (url.pathname === '/api/btc-price') {
+      await handleBtcPrice(req, res);
+      return;
+    }
+
     await serveStatic(url.pathname, res);
   } catch (error) {
     console.error(error);
@@ -50,6 +55,85 @@ server.listen(PORT, HOST, () => {
   console.log(`Bigfoot Capital site listening on http://${HOST}:${PORT}`);
   console.log(`Waitlist file: ${WAITLIST_FILE}`);
 });
+
+const PRICE_SOURCES = [
+  {
+    source: 'binance',
+    url: 'https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT',
+    parse: (json) => ({ price: Number(json.lastPrice), change: Number(json.priceChangePercent) }),
+  },
+  {
+    source: 'okx',
+    url: 'https://www.okx.com/api/v5/market/ticker?instId=BTC-USDT',
+    parse: (json) => {
+      const row = json?.data?.[0];
+      const price = Number(row?.last);
+      const open = Number(row?.open24h);
+      return { price, change: open ? ((price - open) / open) * 100 : null };
+    },
+  },
+  {
+    source: 'coingecko',
+    url: 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true',
+    parse: (json) => ({ price: Number(json?.bitcoin?.usd), change: Number(json?.bitcoin?.usd_24h_change) }),
+  },
+];
+
+async function fetchJsonWithTimeout(url, timeoutMs = 8000) {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+  try {
+    const upstream = await fetch(url, {
+      signal: ctrl.signal,
+      cache: 'no-store',
+      headers: {
+        'User-Agent': 'Mozilla/5.0 Bigfoot BTC price proxy',
+        Accept: 'application/json',
+        'Cache-Control': 'no-cache',
+      },
+    });
+    if (!upstream.ok) throw new Error(`upstream_${upstream.status}`);
+    return upstream.json();
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function handleBtcPrice(req, res) {
+  if (req.method !== 'GET') {
+    sendJson(res, 405, { error: 'method_not_allowed' });
+    return;
+  }
+
+  const attempts = {};
+  for (const item of PRICE_SOURCES) {
+    try {
+      const json = await fetchJsonWithTimeout(item.url);
+      const parsed = item.parse(json);
+      if (Number.isFinite(parsed.price)) {
+        res.writeHead(200, {
+          'content-type': 'application/json; charset=utf-8',
+          'cache-control': 'no-store, no-cache, must-revalidate, max-age=0',
+          pragma: 'no-cache',
+          expires: '0',
+        });
+        res.end(JSON.stringify({
+          source: item.source,
+          price: parsed.price,
+          change: Number.isFinite(parsed.change) ? parsed.change : null,
+          fetchedAt: new Date().toISOString(),
+          attempts,
+        }));
+        return;
+      }
+      attempts[item.source] = 'invalid_price';
+    } catch (error) {
+      attempts[item.source] = error?.message || 'fetch_failed';
+    }
+  }
+
+  sendJson(res, 502, { error: 'all_price_sources_failed', attempts });
+}
 
 async function handleMarketHistory(req, res, url) {
   if (req.method !== 'GET') {
