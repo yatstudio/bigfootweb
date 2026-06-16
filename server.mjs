@@ -87,7 +87,9 @@ async function handleMarketHistory(req, res, url) {
 
     res.writeHead(200, {
       'content-type': 'application/json; charset=utf-8',
-      'cache-control': 's-maxage=1800, stale-while-revalidate=3600',
+      'cache-control': 'no-store, no-cache, must-revalidate, max-age=0',
+      pragma: 'no-cache',
+      expires: '0',
     });
     res.end(JSON.stringify({ symbol, source: 'Yahoo Finance chart via Bigfoot proxy', rows }));
   } catch (error) {
@@ -200,10 +202,20 @@ async function serveStatic(rawPathname, res) {
     throw error;
   }
 
-  res.writeHead(200, {
+  const isBtcAsset = pathname === '/btc' || pathname.startsWith('/btc/');
+  const cacheControl = isBtcAsset
+    ? 'no-store, no-cache, must-revalidate, max-age=0'
+    : 'public, max-age=60';
+  const headers = {
     'content-type': MIME.get(path.extname(filePath).toLowerCase()) || 'application/octet-stream',
-    'cache-control': 'public, max-age=60',
-  });
+    'cache-control': cacheControl,
+  };
+  if (isBtcAsset) {
+    headers.pragma = 'no-cache';
+    headers.expires = '0';
+  }
+
+  res.writeHead(200, headers);
   createReadStream(filePath).pipe(res);
 }
 
