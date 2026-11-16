@@ -3,70 +3,267 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bigfoot Capital - 投资探险</title>
-  <link rel="icon" type="image/png" href="assets/favicon-32.png" sizes="32x32" />
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
-  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <meta name="description" content="Bigfoot Capital — 投资是一场有纪律的探险。桌面交易智能体：观察市场、规划路线、沉淀经验。" />
+  <title>Bigfoot Capital — 投资探险</title>
+  <link rel="icon" type="image/png" href="brand/favicon-32.png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="brand/apple-touch-icon.png" />
   <style>
     :root{
-      --night:#07120c;--deep:#102719;--forest:#173f26;--pine:#255f37;--gold:#e0ae4b;--sun:#ffe19a;--cream:#fff6dc;--paper:#fff7e7;--ink:#172817;--muted:#66705c;--line:rgba(255,246,220,.22);--darkLine:rgba(23,40,23,.14);
-      --shadow:0 34px 110px rgba(12,31,17,.32);
+      --forest:#0d1712; --paper:#f6f4ee; --ink:#141a16; --ink-2:#57615a;
+      --brass:#b08d3e; --brass-2:#c9a85c; --cream:#f2ecdc;
+      --line:#ddd9cc; --line-dark:rgba(242,236,220,.16);
+      --serif:"Songti SC","Noto Serif SC",Georgia,"Times New Roman",serif;
+      --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Segoe UI",sans-serif;
     }
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth;overflow-x:hidden}
-    body{margin:0;background:#f1dfb8;color:var(--ink);font-family:Inter,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
     a{color:inherit;text-decoration:none}
-    .wrap{width:min(1200px,calc(100% - 44px));margin:0 auto}
-    .hero-shell{position:relative;min-height:900px;overflow:hidden;color:var(--cream);background:linear-gradient(180deg,#0b1b11 0%,#183d24 45%,#865c2c 76%,#efd49a 100%)}
-    .hero-shell:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 74% 18%,rgba(255,225,154,.9) 0 6%,rgba(255,225,154,.38) 7% 14%,transparent 25%),radial-gradient(circle at 40% 55%,rgba(224,174,75,.13),transparent 36%),linear-gradient(90deg,rgba(6,18,10,.96) 0%,rgba(6,18,10,.76) 40%,rgba(6,18,10,.2) 100%);z-index:0}
-    .stars{position:absolute;inset:0;opacity:.28;background-image:radial-gradient(circle,#fff6dc 1px,transparent 1px);background-size:64px 64px;mask-image:linear-gradient(180deg,black 0%,transparent 50%);z-index:1}
-    .mountain-layer{position:absolute;left:-8%;right:-8%;bottom:0;z-index:1;pointer-events:none}
-    .mountain-layer.back{height:430px;bottom:165px;opacity:.46;background:linear-gradient(135deg,transparent 0 35%,#687c58 35% 44%,transparent 44%),linear-gradient(45deg,transparent 0 38%,#4d6947 38% 48%,transparent 48%),linear-gradient(135deg,transparent 0 54%,#7e8e5e 54% 63%,transparent 63%);background-size:620px 430px,760px 470px,920px 500px;background-position:left bottom,center bottom,right bottom;filter:blur(.2px)}
-    .mountain-layer.mid{height:510px;bottom:60px;opacity:.82;background:linear-gradient(135deg,transparent 0 33%,#335f35 33% 45%,transparent 45%),linear-gradient(45deg,transparent 0 42%,#214629 42% 55%,transparent 55%),linear-gradient(135deg,transparent 0 58%,#4f753e 58% 68%,transparent 68%);background-size:700px 510px,850px 540px,1000px 560px;background-position:left bottom,center bottom,right bottom}
-    .mountain-layer.front{height:360px;bottom:-75px;opacity:1;background:radial-gradient(ellipse at 50% 100%,#0e2a16 0 56%,transparent 57%),linear-gradient(135deg,transparent 0 40%,#183b21 40% 54%,transparent 54%),linear-gradient(45deg,transparent 0 42%,#102917 42% 56%,transparent 56%);background-size:1200px 360px,780px 330px,880px 350px;background-position:center bottom,left bottom,right bottom}
-    header{position:relative;z-index:10;padding-top:18px}.navbox{height:76px;border:1px solid rgba(255,246,220,.32);background:rgba(255,249,232,.88);backdrop-filter:blur(18px);border-radius:999px;display:flex;align-items:center;justify-content:space-between;padding:0 18px 0 14px;box-shadow:0 18px 50px rgba(6,18,10,.18)}
-    .brand{display:flex;align-items:center;gap:13px}.brand img{width:54px;height:54px;object-fit:contain;filter:drop-shadow(0 8px 16px rgba(11,27,17,.22))}.brand b{display:block;color:#0c170d;font-size:20px;letter-spacing:-.005em}.brand small{display:block;color:#52614c;font-size:11px;font-weight:900;letter-spacing:.10em;text-transform:uppercase}.navlinks{display:flex;align-items:center;gap:24px;color:#243320;font-weight:850;font-size:14px;letter-spacing:.01em}.navlinks a{opacity:.88}.lang{padding:10px 14px;border-radius:999px;background:#102719;color:#fff6dc!important;opacity:1!important}
-    .hero{position:relative;z-index:3;display:grid;grid-template-columns:1.02fr .98fr;align-items:center;gap:42px;padding:92px 0 185px}.eyebrow{display:inline-flex;align-items:center;gap:10px;padding:11px 16px;border-radius:999px;background:rgba(255,246,220,.12);border:1px solid rgba(255,246,220,.24);backdrop-filter:blur(14px);color:var(--sun);font-weight:900;letter-spacing:.14em;font-size:13px}.eyebrow:before{content:"🧭"}
-    h1{font-size:clamp(56px,7.8vw,104px);line-height:1;margin:24px 0 25px;letter-spacing:-.035em;color:#fff8de;text-shadow:0 24px 80px rgba(0,0,0,.48);max-width:780px}.lead{font-size:clamp(20px,2.3vw,27px);line-height:1.55;color:rgba(255,246,220,.82);max-width:740px;margin:0 0 34px}.actions{display:flex;gap:15px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:0 24px;border-radius:999px;font-weight:900;border:1px solid rgba(255,246,220,.28);background:linear-gradient(135deg,#ffe19a,#d79b34);color:#17230f;box-shadow:0 20px 48px rgba(215,155,52,.3)}.btn.secondary{background:rgba(255,246,220,.1);color:#fff6dc;box-shadow:none;backdrop-filter:blur(14px)}
-    .summit-card{position:relative;min-height:610px}.summit-orb{position:absolute;right:8%;top:5%;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,#ffe19a 0 26%,rgba(255,225,154,.18) 58%,transparent 70%);filter:blur(.4px)}.bigfoot-stage{position:absolute;inset:auto 0 0 0;height:560px}.bigfoot-stage:before{content:"";position:absolute;left:50%;bottom:18px;transform:translateX(-50%);width:580px;height:210px;border-radius:50%;background:radial-gradient(ellipse,#112917 0 50%,transparent 72%);opacity:.9}.hero-mascot{position:absolute;z-index:3;left:50%;bottom:82px;transform:translateX(-50%);width:min(70%,410px);filter:drop-shadow(0 42px 58px rgba(0,0,0,.45))}.summit-note{position:absolute;z-index:4;left:50%;bottom:22px;transform:translateX(-50%);width:min(92%,470px);background:rgba(255,249,232,.92);border:1px solid rgba(255,255,255,.5);border-radius:26px;padding:18px 20px;text-align:center;color:#172817;font-weight:900;box-shadow:0 22px 55px rgba(0,0,0,.24)}
-    main{background:linear-gradient(180deg,#f1dfb8,#fff9ec 26%,#f3e1ba 100%)}.section{padding:88px 0}.center{text-align:center}.section h2{font-size:clamp(36px,5vw,62px);line-height:1.08;margin:0 0 16px;color:#17351f;letter-spacing:-.025em}.section .sub{max-width:780px;margin:0 auto 40px;color:var(--muted);font-size:19px;line-height:1.7}.about{display:grid;grid-template-columns:.95fr 1.05fr;gap:28px;align-items:center;background:rgba(255,249,236,.75);border:1px solid var(--darkLine);border-radius:42px;padding:32px;box-shadow:var(--shadow)}.about-visual{position:relative;min-height:390px;border-radius:34px;overflow:hidden;background:linear-gradient(180deg,#ffd978,#d99b38 42%,#1b4628 100%)}.about-visual:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 0 38%,#4e783f 38% 48%,transparent 48%),linear-gradient(45deg,transparent 0 44%,#214a2b 44% 55%,transparent 55%);background-size:500px 320px,620px 350px;background-position:left bottom,right bottom}.about-visual img{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);width:290px;filter:drop-shadow(0 25px 36px rgba(0,0,0,.28))}.about p{color:#5a674f;font-size:18px;line-height:1.78}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.card{background:rgba(255,249,236,.82);border:1px solid var(--darkLine);border-radius:34px;padding:32px;box-shadow:0 18px 50px rgba(80,60,20,.09)}.icon{width:66px;height:66px;border-radius:26px;display:grid;place-items:center;background:linear-gradient(135deg,#ffe2a0,#d8a642);font-size:31px;margin:0 auto 23px}.card h3{font-size:29px;text-align:center;margin:0 0 13px;color:#17351f}.card p{text-align:center;color:var(--muted);line-height:1.68;margin:0}.agent{display:grid;grid-template-columns:1fr 1fr;gap:22px}.panel{background:rgba(255,249,236,.88);border:1px solid var(--darkLine);border-radius:38px;padding:34px;box-shadow:var(--shadow)}.panel p{color:#59664f;font-size:18px;line-height:1.74}.systems{display:flex;gap:11px;flex-wrap:wrap;margin-top:25px}.system{background:linear-gradient(135deg,#102719,#29653a);color:#fff6dc;border-radius:18px;padding:13px 17px;font-weight:900}.product-list{display:grid;gap:13px}.row{display:flex;gap:14px;align-items:flex-start;background:#fff0c6;border:1px solid #e5cf98;border-radius:23px;padding:19px}.row b{display:block;color:#17351f;font-size:19px;margin-bottom:6px}.row span{color:var(--muted);line-height:1.6}.contact{background:linear-gradient(135deg,#07120c,#173f26 54%,#2f7441);color:#fff6dc;border-radius:44px;padding:42px;box-shadow:var(--shadow);display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center;overflow:hidden;position:relative}.contact:before{content:"";position:absolute;right:-110px;top:-110px;width:320px;height:320px;border-radius:50%;background:rgba(224,174,75,.28);filter:blur(10px)}.contact>*{position:relative}.contact h2{color:#fff6dc}.contact p{color:rgba(255,246,220,.75);font-size:18px;line-height:1.7}.contact-card{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:25px;padding:22px}.contact-card small{display:block;color:#ffe19a;font-weight:900;letter-spacing:.12em;margin-bottom:9px;text-transform:uppercase}.contact-card a{font-size:23px;font-weight:900;word-break:break-word}.disclaimer{margin-top:18px;color:rgba(255,246,220,.62);font-size:13px;line-height:1.6}footer{padding:38px 0;color:#66705c}.foot{display:flex;justify-content:space-between;gap:18px;align-items:center;border-top:1px solid rgba(23,40,23,.16);padding-top:26px}.foot .brand small{color:#66705c}
-    @media(max-width:920px){.hero{grid-template-columns:1fr;padding-top:64px}.hero-shell{min-height:auto}.summit-card{min-height:560px}.about,.agent,.contact{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.section{padding:64px 0}}
-    @media(max-width:580px){.wrap{width:min(100% - 28px,1200px)}.navbox{height:70px}.brand small,.navlinks a:not(.lang){display:none}h1{font-size:42px;letter-spacing:-.015em;line-height:1.08}.hero{padding-bottom:120px}.summit-card{min-height:470px}.hero-mascot{width:310px}.summit-note{font-size:14px}.section h2{letter-spacing:-.05em}.contact{padding:28px}.foot{flex-direction:column;align-items:flex-start}}
-
-    /* preview mobile polish: avoid repeated large Bigfoot marks */
-    .trail-map{position:relative;min-height:390px;border-radius:34px;overflow:hidden;background:linear-gradient(180deg,#ffe08a 0%,#dca13f 42%,#254f2e 100%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.36)}
-    .trail-map:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 0 35%,rgba(88,122,64,.8) 35% 47%,transparent 47%),linear-gradient(45deg,transparent 0 43%,rgba(28,74,39,.9) 43% 56%,transparent 56%),radial-gradient(ellipse at 50% 100%,#14331d 0 46%,transparent 47%);background-size:520px 330px,620px 360px,900px 280px;background-position:left bottom,right bottom,center bottom}
-    .trail-map:after{content:"";position:absolute;left:12%;right:12%;bottom:54px;height:7px;border-radius:999px;background:linear-gradient(90deg,transparent,#fff7d7 18%,#fff7d7 28%,transparent 31%,transparent 44%,#fff7d7 48%,#fff7d7 58%,transparent 62%,transparent 76%,#fff7d7 82%,transparent);opacity:.72;transform:rotate(-7deg);box-shadow:0 0 22px rgba(255,247,215,.35)}
-    .trail-point{position:absolute;z-index:2;width:54px;height:54px;border-radius:18px;display:grid;place-items:center;background:rgba(255,249,232,.9);border:1px solid rgba(255,255,255,.62);box-shadow:0 16px 38px rgba(16,39,25,.2);font-size:24px;color:#173f26}.trail-point.one{left:12%;bottom:70px}.trail-point.two{left:45%;bottom:130px}.trail-point.three{right:13%;bottom:205px}
-    .about-visual img{display:none}
-    @media(max-width:580px){.hero-shell{min-height:auto}.hero{gap:18px;padding-top:46px;padding-bottom:86px}.summit-card{min-height:390px}.bigfoot-stage{height:405px}.hero-mascot{width:245px;bottom:92px}.summit-note{bottom:22px;width:min(94%,360px);padding:14px 15px}.mountain-layer.back{height:300px;bottom:120px}.mountain-layer.mid{height:360px;bottom:42px}.mountain-layer.front{height:260px;bottom:-58px}.navbox{border-radius:24px;padding-right:12px}.trail-map{min-height:270px}.trail-point{width:44px;height:44px;border-radius:15px;font-size:20px}.about{padding:22px;border-radius:30px}.section{padding:50px 0}}
-
-
-    /* inline waitlist preview */
-    .inline-waitlist{margin-top:24px;padding:18px;border-radius:24px;background:#fff3cf;border:1px solid #e5cf98;box-shadow:0 12px 34px rgba(80,60,20,.08)}
-    .inline-waitlist label{display:block;color:#17351f;font-weight:900;font-size:18px;margin-bottom:11px}.inline-row{display:grid;grid-template-columns:1fr auto;gap:10px}.inline-row input{min-height:50px;border:1px solid rgba(23,40,23,.16);border-radius:16px;padding:0 14px;font-size:16px;background:#fff;color:#172817;outline:none}.inline-row input:focus{border-color:#d8a642;box-shadow:0 0 0 4px rgba(216,166,66,.16)}.inline-row button{min-height:50px;border:0;border-radius:16px;padding:0 18px;background:linear-gradient(135deg,#ffe19a,#d79b34);font-weight:900;color:#17230f;cursor:pointer}.inline-status{min-height:20px;margin-top:10px;color:#66705c;font-weight:850}.inline-status.ok{color:#1d6a37}.inline-status.err{color:#a33b2e}@media(max-width:580px){.inline-row{grid-template-columns:1fr}.inline-row button{width:100%}.inline-waitlist{margin-top:18px;padding:15px;border-radius:20px}}
-
-
-    .system{border:0;cursor:pointer;font-family:inherit;font-size:inherit}.system:focus-visible{outline:3px solid rgba(216,166,66,.45);outline-offset:3px}.platform-hint{margin-top:10px;color:#66705c;font-size:14px;font-weight:800;line-height:1.45}
-
+    .wrap{width:min(1160px,calc(100% - 48px));margin:0 auto}
+    ::selection{background:var(--brass);color:#fff}
+    .hero{position:relative;background:var(--forest);color:var(--cream);overflow:hidden}
+    .hero .contours{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+    header{position:relative;z-index:5;border-bottom:1px solid var(--line-dark)}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:78px}
+    .brand{display:flex;align-items:center;gap:14px}
+    .brand .mark{width:40px;height:40px;border-radius:50%;background:var(--cream);display:grid;place-items:center;overflow:hidden;flex:none}
+    .brand .mark img{width:30px;height:30px;object-fit:contain}
+    .brand b{font-size:17px;letter-spacing:.02em;display:block;line-height:1.15;color:#fff}
+    .brand small{display:block;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:rgba(242,236,220,.55);font-weight:600}
+    .navlinks{display:flex;align-items:center;gap:30px;font-size:14px;color:rgba(242,236,220,.82)}
+    .navlinks a{padding:6px 0;border-bottom:1px solid transparent;transition:.2s}
+    .navlinks a:hover{color:#fff;border-bottom-color:var(--brass-2)}
+    .navlinks .lang{border:1px solid rgba(242,236,220,.35);border-radius:999px;padding:7px 15px;color:#fff}
+    .navlinks .lang:hover{border-color:var(--brass-2);background:rgba(201,168,92,.12)}
+    .hero-grid{position:relative;z-index:3;display:grid;grid-template-columns:1.08fr .92fr;gap:64px;align-items:center;padding:96px 0 104px}
+    .eyebrow{display:flex;align-items:center;gap:14px;font-size:12px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--brass-2)}
+    .eyebrow:before{content:"";width:38px;height:1px;background:var(--brass-2)}
+    h1{font-family:var(--serif);font-weight:600;font-size:clamp(44px,5.6vw,74px);line-height:1.08;margin:26px 0 24px;color:#fdfbf5}
+    h1 em{font-style:italic;color:var(--brass-2)}
+    .lead{font-size:18px;line-height:1.75;color:rgba(242,236,220,.74);max-width:560px;margin:0 0 38px}
+    .actions{display:flex;gap:14px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;min-height:52px;padding:0 26px;border-radius:999px;font-weight:700;font-size:15px;background:var(--brass);color:#171106;transition:.2s;border:1px solid var(--brass)}
+    .btn:hover{background:var(--brass-2);border-color:var(--brass-2)}
+    .btn.ghost{background:transparent;color:var(--cream);border-color:rgba(242,236,220,.35)}
+    .btn.ghost:hover{border-color:var(--cream);background:rgba(242,236,220,.06)}
+    .hero-meta{display:flex;margin-top:56px;border-top:1px solid var(--line-dark);max-width:560px}
+    .hero-meta div{flex:1;padding:18px 18px 0 0}
+    .hero-meta div+div{padding-left:18px;border-left:1px solid var(--line-dark)}
+    .hero-meta b{font-family:var(--serif);font-size:15px;color:#fff;display:block;margin-bottom:4px}
+    .hero-meta span{font-size:12px;letter-spacing:.08em;color:rgba(242,236,220,.5);text-transform:uppercase}
+    .stamp{background:var(--paper);color:var(--ink);border-radius:6px;padding:34px 34px 0;box-shadow:0 40px 90px rgba(0,0,0,.45);transform:rotate(1.2deg);margin:0}
+    .stamp .imgbox{display:grid;place-items:center;padding:18px 0 8px}
+    .stamp img{width:min(68%,300px);filter:drop-shadow(0 18px 24px rgba(20,26,22,.25))}
+    .stamp .cap{border-top:1px solid var(--line);margin-top:22px;padding:20px 2px 24px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
+    .stamp .cap b{font-family:var(--serif);font-size:19px;line-height:1.35;display:block}
+    .stamp .cap span{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap}
+    section.block{padding:104px 0}
+    .label{display:flex;align-items:center;gap:14px;font-size:12px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--brass);margin-bottom:22px}
+    .label:before{content:"";width:38px;height:1px;background:var(--brass)}
+    h2{font-family:var(--serif);font-weight:600;font-size:clamp(32px,4vw,50px);line-height:1.15;margin:0 0 20px}
+    .sub{color:var(--ink-2);font-size:17px;line-height:1.7;max-width:640px;margin:0}
+    .agent-sec .sub{color:rgba(242,236,220,.66)}
+    .about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:start}
+    .about-grid .body p{color:#3d463f;font-size:17.5px;line-height:1.85;margin:0 0 22px}
+    .about-grid .body p:first-child{font-size:20px;color:var(--ink)}
+    .pull{font-family:var(--serif);font-style:italic;font-size:clamp(24px,3vw,34px);line-height:1.4;border-left:2px solid var(--brass);padding-left:26px;margin:36px 0 0}
+    .principles{display:grid;grid-template-columns:repeat(3,1fr);margin-top:64px;border-top:1px solid var(--line)}
+    .principle{padding:36px 30px 8px 0}
+    .principle+.principle{padding-left:30px;border-left:1px solid var(--line)}
+    .principle .no{font-family:var(--serif);font-style:italic;font-size:17px;color:var(--brass)}
+    .principle h3{font-family:var(--serif);font-size:27px;font-weight:600;margin:14px 0 12px}
+    .principle p{color:var(--ink-2);line-height:1.75;margin:0;font-size:16px}
+    .agent-sec{background:var(--forest);color:var(--cream)}
+    .agent-sec h2{color:#fdfbf5}
+    .agent-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+    .systems{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px}
+    .system{font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;background:transparent;color:var(--cream);border:1px solid rgba(242,236,220,.35);border-radius:999px;padding:12px 22px;transition:.2s}
+    .system:hover{border-color:var(--brass-2)}
+    .system.sel{background:var(--brass);border-color:var(--brass);color:#171106}
+    .platform-hint{margin-top:14px;color:rgba(242,236,220,.5);font-size:13.5px;line-height:1.6}
+    .waitlist{margin-top:30px;border-top:1px solid var(--line-dark);padding-top:30px}
+    .waitlist label{display:block;font-family:var(--serif);font-size:21px;margin-bottom:16px;color:#fff}
+    .wl-row{display:grid;grid-template-columns:1fr auto;gap:10px}
+    .wl-row input{min-height:52px;border:1px solid rgba(242,236,220,.3);border-radius:999px;padding:0 20px;font-size:16px;background:rgba(242,236,220,.06);color:#fff;outline:none;font-family:inherit}
+    .wl-row input::placeholder{color:rgba(242,236,220,.4)}
+    .wl-row input:focus{border-color:var(--brass-2);box-shadow:0 0 0 4px rgba(201,168,92,.18)}
+    .wl-row button{min-height:52px;border:0;border-radius:999px;padding:0 28px;background:var(--brass);font-weight:800;font-size:15px;color:#171106;cursor:pointer;font-family:inherit;transition:.2s}
+    .wl-row button:hover{background:var(--brass-2)}
+    .wl-status{min-height:22px;margin-top:12px;color:rgba(242,236,220,.6);font-weight:600;font-size:14px}
+    .wl-status.ok{color:#8fd694}.wl-status.err{color:#ff9d8a}
+    .features{border-top:1px solid var(--line-dark)}
+    .feature{display:flex;gap:22px;padding:28px 0;border-bottom:1px solid var(--line-dark);align-items:flex-start}
+    .feature .no{font-family:var(--serif);font-style:italic;color:var(--brass-2);font-size:16px;padding-top:4px;flex:none}
+    .feature b{display:block;font-family:var(--serif);font-size:22px;font-weight:600;color:#fff;margin-bottom:7px}
+    .feature span{color:rgba(242,236,220,.62);line-height:1.7;font-size:16px}
+    .contact-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:72px;align-items:start}
+    .disclaimer{margin-top:26px;font-size:13px;color:var(--ink-2)}
+    .contact-rows{border-top:1px solid var(--line)}
+    .contact-row{display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:26px 0;border-bottom:1px solid var(--line)}
+    .contact-row small{font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--brass)}
+    .contact-row a{font-family:var(--serif);font-size:clamp(19px,2.4vw,26px);font-weight:600;word-break:break-all;text-align:right}
+    .contact-row a:hover{color:var(--brass)}
+    footer{background:var(--forest);color:rgba(242,236,220,.55);padding:44px 0}
+    .foot{display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap}
+    .foot .brand b{font-size:15px}.foot .brand .mark{width:34px;height:34px}.foot .brand .mark img{width:25px;height:25px}
+    .foot .slogan{font-family:var(--serif);font-style:italic;font-size:15px;color:rgba(242,236,220,.75)}
+    .rv{opacity:1;transform:none}
+    @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+    @media(max-width:920px){
+      .hero-grid{grid-template-columns:1fr;gap:48px;padding:64px 0 72px}
+      .stamp{transform:none;max-width:520px}
+      .about-grid,.agent-grid,.contact-grid{grid-template-columns:1fr;gap:44px}
+      .principles{grid-template-columns:1fr}
+      .principle{padding:28px 0 4px}
+      .principle+.principle{padding-left:0;border-left:0;border-top:1px solid var(--line)}
+      section.block{padding:72px 0}
+    }
+    @media(max-width:580px){
+      .wrap{width:calc(100% - 36px)}
+      .nav{height:66px}
+      .navlinks a:not(.lang){display:none}
+      h1{font-size:40px}
+      .lead{font-size:16.5px}
+      .hero-meta{flex-direction:column}
+      .hero-meta div{padding:14px 0 0}
+      .hero-meta div+div{padding-left:0;border-left:0}
+      .wl-row{grid-template-columns:1fr}
+      .wl-row button{width:100%}
+      .contact-row{flex-direction:column;gap:6px}
+      .contact-row a{text-align:left}
+      .foot{flex-direction:column;align-items:flex-start}
+      .stamp .cap{flex-direction:column;align-items:flex-start;gap:8px}
+    }
+      html[lang="zh-CN"] h1{font-size:clamp(40px,5vw,66px);line-height:1.18;letter-spacing:.01em}
   </style>
+  <script defer src="https://stats.carromking.shop/script.js" data-website-id="3c1b9c20-bab2-44d3-893a-68a6479064d3"></script>
 </head>
 <body>
-  <section class="hero-shell" id="top">
-    <div class="stars"></div>
-    <div class="mountain-layer back"></div>
-    <div class="mountain-layer mid"></div>
-    <div class="mountain-layer front"></div>
-    <header><nav class="wrap navbox"><a class="brand" href="#top"><img src="assets/bigfoot-logo.png" alt="Bigfoot Capital 标志"><span><b>Bigfoot Capital</b><small>投资探险</small></span></a><div class="navlinks"><a href="#about">关于</a><a href="#philosophy">理念</a><a href="#agent">交易智能体</a><a href="#contact">联系</a><a class="lang" href="index.html">English</a></div></nav></header>
-    <div class="hero wrap"><div><div class="eyebrow">和 Bigfoot 一起探索</div><h1>欢迎来到 Bigfoot Capital</h1><p class="lead">投资是一场穿越市场山脉的探险。Bigfoot Capital 保持冒险、果敢、远见的理念，并用桌面交易智能体帮助投资者观察市场、规划路线、沉淀经验。</p><div class="actions"><a class="btn" href="#agent">了解交易智能体</a><a class="btn secondary" href="#philosophy">查看投资理念</a></div></div><div class="summit-card"><div class="summit-orb"></div><div class="bigfoot-stage"><img class="hero-mascot" src="assets/bigfoot-logo.png" alt="Bigfoot 站在大山前"><div class="summit-note">探险在前方。谨慎投资。大胆思考。</div></div></div></div>
-  </section>
+  <div class="hero" id="top">
+    <svg class="contours" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="none" aria-hidden="true">
+      <g stroke="#c9a85c" stroke-width="1" opacity=".28">
+        <path d="M1080,-60 C1300,60 1520,40 1620,240 C1720,440 1560,640 1330,700 C1100,760 940,640 960,440 C980,240 900,40 1080,-60 Z"/>
+        <path d="M1120,20 C1290,110 1440,110 1510,270 C1580,430 1460,580 1290,620 C1120,660 1010,560 1030,400 C1050,240 1000,90 1120,20 Z"/>
+        <path d="M1170,110 C1290,170 1370,180 1410,290 C1450,400 1370,510 1260,530 C1150,550 1090,470 1105,360 C1120,250 1100,160 1170,110 Z"/>
+        <path d="M1215,205 C1290,245 1330,255 1350,320 C1370,385 1320,450 1255,455 C1190,460 1160,400 1170,330 C1180,260 1170,225 1215,205 Z"/>
+      </g>
+      <g stroke="#f2ecdc" stroke-width="1" opacity=".10">
+        <path d="M-120,700 C140,620 260,760 520,700 C780,640 900,760 1180,690 L1600,600"/>
+        <path d="M-120,770 C140,690 260,830 520,770 C780,710 900,830 1180,760 L1600,670"/>
+        <path d="M-120,840 C140,760 260,900 520,840 C780,780 900,900 1180,830 L1600,740"/>
+      </g>
+    </svg>
+    <header>
+      <nav class="wrap nav">
+        <a class="brand" href="#top"><span class="mark"><img src="brand/bigfoot-logo.png" alt="" /></span><span><b>Bigfoot Capital</b><small>投资探险</small></span></a>
+        <div class="navlinks">
+          <a href="#about">关于</a><a href="#philosophy">理念</a><a href="#agent">交易智能体</a><a href="#contact">联系</a>
+          <a class="lang" href="index.html">English</a>
+        </div>
+      </nav>
+    </header>
+    <div class="hero-grid wrap">
+      <div>
+        <div class="eyebrow">和 Bigfoot 一起探索</div>
+        <h1>投资，是一场穿越市场山脉的<em>探险</em>。</h1>
+        <p class="lead">Bigfoot Capital 保持冒险、果敢、远见的理念，并用桌面交易智能体帮助投资者观察市场、规划路线、沉淀经验。</p>
+        <div class="actions">
+          <a class="btn" href="#agent">了解交易智能体</a>
+          <a class="btn ghost" href="#philosophy">查看投资理念</a>
+        </div>
+        <div class="hero-meta">
+          <div><b>冒险</b><span>探索未知</span></div>
+          <div><b>果敢</b><span>计算风险</span></div>
+          <div><b>远见</b><span>先于趋势</span></div>
+        </div>
+      </div>
+      <figure class="stamp">
+        <div class="imgbox"><img src="brand/bigfoot-logo.png" alt="Bigfoot，Bigfoot Capital 的向导" /></div>
+        <figcaption class="cap"><b>探险在前方。<br/>谨慎投资。大胆思考。</b><span>Bigfoot Capital</span></figcaption>
+      </figure>
+    </div>
+  </div>
+
   <main>
-    <section class="section wrap" id="about"><div class="about"><div class="trail-map" role="img" aria-label="山脉路线图"><span class="trail-point one">🧭</span><span class="trail-point two">⛰️</span><span class="trail-point three">👁️</span></div><div><h2>认识你的向导</h2><p>我是 Bigfoot，一位热爱旅行与发现的专业投资者。对我来说，投资就像探索新的山径——大胆、兴奋，也充满未知。</p><p>从全球市场到新兴科技，我带着好奇心、耐心和对风险的敬畏寻找机会。让我们一起创造传奇投资。</p></div></div></section>
-    <section class="section wrap center" id="philosophy"><h2>我的投资理念</h2><p class="sub">三个核心原则，指导每一次投资决策。</p><div class="cards"><article class="card"><div class="icon">🧭</div><h3>冒险</h3><p>我像探索未知森林一样探索市场，以开放心态寻找隐藏机会。</p></article><article class="card"><div class="icon">⛰️</div><h3>果敢</h3><p>我攀登最高的山峰，在充分准备和纪律之上承担经过计算的风险。</p></article><article class="card"><div class="icon">👁️</div><h3>远见</h3><p>我看向地平线之外，在趋势显现之前保持观察。</p></article></div></section>
-    <section class="section wrap" id="agent"><div class="agent"><div class="panel"><div class="eyebrow">桌面产品</div><h2>Bigfoot 交易智能体</h2><p>这是一个用于市场观察、研究笔记、交易计划和复盘的桌面助手。它保持 Bigfoot 的探险精神，同时让交易工作流更清晰、更有纪律。</p><div class="systems"><button type="button" class="system platform-cta" data-platform="Mac">Mac</button><button type="button" class="system platform-cta" data-platform="Windows">Windows</button><button type="button" class="system platform-cta" data-platform="Linux">Linux</button></div><div class="platform-hint">Mac / Windows / Linux 是桌面版本选择。点击任一系统后，下面会提示你填写邮箱预约内测。</div><form class="inline-waitlist" data-source="zh-home"><label for="waitlist-email-zh">预约内测</label><div class="inline-row"><input id="waitlist-email-zh" type="email" name="email" placeholder="你的电子邮件" autocomplete="email" required><button type="submit">预约</button></div><div class="inline-status" aria-live="polite"></div></form></div><div class="panel product-list"><div class="row"><div>🔎</div><div><b>观察市场</b><span>跟踪信号、叙事和机会，同时保持对全局的判断。</span></div></div><div class="row"><div>🗺️</div><div><b>规划路线</b><span>在行动之前，把想法整理成更清楚的计划。</span></div></div><div class="row"><div>📒</div><div><b>记住路径</b><span>沉淀笔记、复盘和经验，让每一次探索都能累积。</span></div></div></div></div></section>
-    <section class="section wrap" id="contact"><div class="contact"><div><h2>准备好开始你的探险了吗？</h2><p>如需产品访问、合作交流或投资研究协作，欢迎联系 Bigfoot Capital。</p><div class="disclaimer">仅用于研究和计划，不构成投资建议。</div></div><div><div class="contact-card"><small>Telegram</small><a href="#contact">+44 79 8594 1432</a></div><br><div class="contact-card"><small>邮箱</small><a href="mailto:CEO@bigfoot.Capital">CEO@bigfoot.Capital</a></div></div></div></section>
+    <section class="block wrap" id="about">
+      <div class="about-grid">
+        <div class="rv">
+          <div class="label">01 · 向导</div>
+          <h2>认识你的向导</h2>
+        </div>
+        <div class="body rv">
+          <p>我是 Bigfoot，一位热爱旅行与发现的专业投资者。对我来说，投资就像探索新的山径——大胆、兴奋，也充满未知。</p>
+          <p>从全球市场到新兴科技，我带着好奇心、耐心和对风险的敬畏寻找机会。</p>
+          <div class="pull">「让我们一起创造传奇投资。」</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block wrap" id="philosophy" style="padding-top:20px">
+      <div class="rv">
+        <div class="label">02 · 理念</div>
+        <h2>我的投资理念</h2>
+        <p class="sub">三个核心原则，指导每一次投资决策。</p>
+      </div>
+      <div class="principles rv">
+        <article class="principle"><div class="no">No. 01</div><h3>冒险</h3><p>我像探索未知森林一样探索市场，以开放心态寻找隐藏机会。</p></article>
+        <article class="principle"><div class="no">No. 02</div><h3>果敢</h3><p>我攀登最高的山峰，在充分准备和纪律之上承担经过计算的风险。</p></article>
+        <article class="principle"><div class="no">No. 03</div><h3>远见</h3><p>我看向地平线之外，在趋势显现之前保持观察。</p></article>
+      </div>
+    </section>
+
+    <section class="block agent-sec" id="agent">
+      <div class="wrap agent-grid">
+        <div class="rv">
+          <div class="label">03 · 桌面产品</div>
+          <h2>Bigfoot 交易智能体</h2>
+          <p class="sub">这是一个用于市场观察、研究笔记、交易计划和复盘的桌面助手。它保持 Bigfoot 的探险精神，同时让交易工作流更清晰、更有纪律。</p>
+          <div class="systems">
+            <button type="button" class="system platform-cta" data-platform="Mac">Mac</button>
+            <button type="button" class="system platform-cta" data-platform="Windows">Windows</button>
+            <button type="button" class="system platform-cta" data-platform="Linux">Linux</button>
+          </div>
+          <div class="platform-hint">Mac / Windows / Linux 是桌面版本选择。点击任一系统后，下面会提示你填写邮箱预约内测。</div>
+          <form class="waitlist inline-waitlist" data-source="zh-home">
+            <label for="waitlist-email-zh">预约内测</label>
+            <div class="wl-row">
+              <input id="waitlist-email-zh" type="email" name="email" placeholder="你的电子邮件" autocomplete="email" required />
+              <button type="submit">预约</button>
+            </div>
+            <div class="wl-status inline-status" aria-live="polite"></div>
+          </form>
+        </div>
+        <div class="features rv">
+          <div class="feature"><div class="no">01</div><div><b>观察市场</b><span>跟踪信号、叙事和机会，同时保持对全局的判断。</span></div></div>
+          <div class="feature"><div class="no">02</div><div><b>规划路线</b><span>在行动之前，把想法整理成更清楚的计划。</span></div></div>
+          <div class="feature"><div class="no">03</div><div><b>记住路径</b><span>沉淀笔记、复盘和经验，让每一次探索都能累积。</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block wrap" id="contact">
+      <div class="contact-grid">
+        <div class="rv">
+          <div class="label">04 · 联系</div>
+          <h2>准备好开始你的探险了吗？</h2>
+          <p class="sub">如需产品访问、合作交流或投资研究协作，欢迎联系 Bigfoot Capital。</p>
+          <div class="disclaimer">仅用于研究和计划，不构成投资建议。</div>
+        </div>
+        <div class="contact-rows rv">
+          <div class="contact-row"><small>Telegram</small><a href="tel:+447942081403">+44 79 4208 1403</a></div>
+          <div class="contact-row"><small>邮箱</small><a href="mailto:ceo@bigfoot.capital">ceo@bigfoot.capital</a></div>
+        </div>
+      </div>
+    </section>
   </main>
-  <footer><div class="wrap foot"><div class="brand"><img src="assets/bigfoot-logo.png" alt="Bigfoot Capital 标志"><span><b>Bigfoot Capital</b><small>探险在前方。谨慎投资。大胆思考。</small></span></div><div>© 2026 Bigfoot Capital</div></div></footer>
+
+  <footer>
+    <div class="wrap foot">
+      <a class="brand" href="#top"><span class="mark"><img src="brand/bigfoot-logo.png" alt="" /></span><span><b>Bigfoot Capital</b><small>投资探险</small></span></a>
+      <div class="slogan">探险在前方。谨慎投资。大胆思考。</div>
+      <div>&copy; 2026 Bigfoot Capital</div>
+    </div>
+  </footer>
 
   <script>
     const WAITLIST_TEXT = {
@@ -76,71 +273,48 @@
       invalidEmail: '请输入有效的电子邮件。',
       platformMessage: '你选择的是 {platform} 桌面版。请在下方填写邮箱预约内测。'
     };
-
-    function isValidEmail(value) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) && value.length <= 254;
-    }
-
-    async function parseJsonSafely(response) {
-      const text = await response.text();
-      if (!text) return null;
-      try {
-        return JSON.parse(text);
-      } catch (error) {
-        return null;
-      }
-    }
-
+    function isValidEmail(value){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) && value.length <= 254;}
+    async function parseJsonSafely(response){const text = await response.text(); if(!text) return null; try{return JSON.parse(text);}catch(e){return null;}}
     let selectedPlatform = '';
-
-    document.querySelectorAll('.platform-cta').forEach((button) => {
-      button.addEventListener('click', () => {
-        const form = document.querySelector('.inline-waitlist');
-        if (!form) return;
-        const input = form.querySelector('input[name="email"]');
-        const status = form.querySelector('.inline-status');
-        const platform = button.dataset.platform || button.textContent.trim();
-        selectedPlatform = platform;
-        status.className = 'inline-status';
-        status.textContent = WAITLIST_TEXT.platformMessage.replace('{platform}', platform);
-        input.focus({ preventScroll: true });
-        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    document.querySelectorAll('.platform-cta').forEach((button)=>{
+      button.addEventListener('click',()=>{
+        document.querySelectorAll('.platform-cta').forEach(b=>b.classList.remove('sel'));
+        button.classList.add('sel');
+        const form=document.querySelector('.inline-waitlist'); if(!form) return;
+        const input=form.querySelector('input[name="email"]');
+        const status=form.querySelector('.inline-status');
+        const platform=button.dataset.platform||button.textContent.trim();
+        selectedPlatform=platform;
+        status.className='wl-status inline-status';
+        status.textContent=WAITLIST_TEXT.platformMessage.replace('{platform}',platform);
+        input.focus({preventScroll:true});
+        form.scrollIntoView({behavior:'smooth',block:'center'});
       });
     });
-
-    document.querySelectorAll('.inline-waitlist').forEach((form) => {
-      const input = form.querySelector('input[name="email"]');
-      const status = form.querySelector('.inline-status');
-      form.addEventListener('submit', async (event) => {
+    document.querySelectorAll('.inline-waitlist').forEach((form)=>{
+      const input=form.querySelector('input[name="email"]');
+      const status=form.querySelector('.inline-status');
+      form.addEventListener('submit', async (event)=>{
         event.preventDefault();
-        const email = input.value.trim();
-        status.className = 'inline-status';
-        if (!isValidEmail(email)) {
-          status.className = 'inline-status err';
-          status.textContent = WAITLIST_TEXT.invalidEmail;
-          input.focus();
-          return;
-        }
-        status.textContent = WAITLIST_TEXT.submitting;
-        try {
-          const res = await fetch('/api/waitlist', {
-            method: 'POST',
-            headers: {'content-type': 'application/json'},
-            body: JSON.stringify({ email, platform: selectedPlatform, source: form.dataset.source || 'home' })
-          });
-          const data = await parseJsonSafely(res);
-          if (!res.ok || !data || !data.ok) {
-            throw new Error((data && data.error) || WAITLIST_TEXT.fallback);
-          }
-          status.className = 'inline-status ok';
-          status.textContent = WAITLIST_TEXT.success;
+        const email=input.value.trim();
+        status.className='wl-status inline-status';
+        if(!isValidEmail(email)){status.className='wl-status inline-status err'; status.textContent=WAITLIST_TEXT.invalidEmail; input.focus(); return;}
+        status.textContent=WAITLIST_TEXT.submitting;
+        try{
+          const res=await fetch('/api/waitlist',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email,platform:selectedPlatform,source:form.dataset.source||'home'})});
+          const data=await parseJsonSafely(res);
+          if(!res.ok||!data||!data.ok){throw new Error((data&&data.error)||WAITLIST_TEXT.fallback);}
+          status.className='wl-status inline-status ok';
+          status.textContent=WAITLIST_TEXT.success;
           form.reset();
-        } catch (err) {
-          status.className = 'inline-status err';
-          status.textContent = err.message || WAITLIST_TEXT.fallback;
+        }catch(err){
+          status.className='wl-status inline-status err';
+          status.textContent=err.message||WAITLIST_TEXT.fallback;
         }
       });
     });
+    const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12});
+    document.querySelectorAll('.rv').forEach(el=>io.observe(el));
   </script>
 </body>
 </html>
